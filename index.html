@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>扭蛋机</title>
+<style>
+   .c-lucky {
+	background-image: url(background.png);
+	background-size: 650px;
+	height: 700px;
+	width: 700px;
+	background-repeat: no-repeat;
+	position: relative;
+	margin: auto;
+	z-index: 99;
+}
+
+.luckyName {
+	width: 308px;
+	height: 164px;
+	margin: 198px 0px 0px 197px;
+	position: relative;
+	display: inline-block;
+	font-size: 50px;
+	line-height: 50px;
+	overflow: hidden;
+	text-align: center;
+}
+
+.actionBtn {
+	width: 25px;
+	height: 85px;
+	background-color: transparent;
+	border: none;
+	background-image: url(action.png);
+	background-repeat: no-repeat;
+	background-size: 25px;
+	outline: none;
+	position: absolute;
+	z-index: 0;
+	top: 290px;
+	right: 138px;
+
+}
+
+.stopBtn {
+	width: 294px;
+	height: 54px;
+	position: absolute;
+	top: 409px;
+	left: 203px;
+	border-radius: 20px;
+	border: none;
+	background-color: transparent;
+	outline: none;
+	-moz-outline-radius: 20px;
+	font-size: 40px;
+	color: white;
+}
+
+.c-lucky .name1,
+.c-lucky .name2,
+.c-lucky .name3 {
+	width: 308px;
+	height: 164px;
+	line-height: 164px;
+	position: absolute;
+
+}
+
+.c-lucky .name1 {
+	bottom: 164px;
+	white-space:nowrap;
+}
+
+.c-lucky .name2 {
+	white-space:nowrap;
+}
+
+.c-lucky .name3 {
+	top: 164px;
+	white-space:nowrap;
+}
+</style>
+</head>
+<body>
+<div class="noName" style="display: none;"></div>
+
+<div class="c-lucky">
+	<div class="luckyName">
+		<div class="name1" id="el1"></div>
+		<div class="name2" id="el2"></div>
+		<div class="name3"></div>
+	</div>
+
+	<input class="actionBtn" type="button" id="action">
+	<input class="stopBtn" type="button" value="开始" id="stop">
+</div>
+ <script>
+        var oBtn = document.getElementsByClassName('stopBtn')[0];
+        var oResult = document.getElementsByClassName('name2')[0];
+        var arrName = ['卖萌券'
+            , '隐私券'
+            , '停止生气券'
+            , '做主券'
+            , '谢谢惠顾'
+            , '撒娇券'
+            , '女仆券'
+            , '认错券'
+            , '加班券'
+            , '再来一次'
+            , '按摩券'
+            , '亲亲券'
+            , '甜言蜜语券'
+            , '奶茶券'
+            , '情侣装券'
+            , '温柔体贴券'
+            , '压马路券'
+            , '男友心愿券'
+            , '分享秘密券'
+            , '听话券'
+            , '抱抱券'
+            , '浪漫券'
+            , '看小电影券'
+            , '洗衣服券'
+            , '喝酒券'
+            , '旅游券'
+            , '逛街券'
+            , '免追根究底券'
+            , '霸霸券'
+            , '嘿嘿嘿券'
+            , '真心话券'
+            , '角色扮演券'
+            , '礼物券'
+            , '角色互换券'
+            , '帮洗澡券'
+            , '美食券'
+            , '复制券'
+            , '原谅券'
+            , '洗白白券'
+            , '情Q内衣券'
+            , '停止冷战券'
+            , '免干家务券'
+            , '复制券'
+            , '女友心愿券'
+            , '赖床券'
+            , '洗头券'
+            , '男友心愿券'
+            , '吹头发券'
+            , '面壁思过券'
+            , '男友心愿券'
+            , '天荒地老券'
+            , '火锅券'
+            , '允许晚归券'
+            , '购物拎包券'
+            , '女友心愿券'
+            , '烧烤券'
+            , '男友心愿券'
+            , '零花钱券'
+            , '复制券'
+            , '睡懒觉券'
+            , '惊喜券'
+            , '天荒地老券'
+            , '复制券'
+            , '女友心愿券'
+            , '吃大餐券'
+            , '彩虹屁券'
+            , '女友心愿券'
+            , '一言为定券'
+            , '女友心愿券'
+            , '耍赖券'
+            , '赞美券'
+            , '女友心愿券'
+            , '复制券'
+            , '男友心愿券'
+            , '安慰券'
+            , '复制券'
+            , '男友心愿券'
+            , '请客券'
+            , '应酬券'
+            , '女友心愿券'
+            , '复制券'
+            , '打游戏券'
+            , '男友心愿券'
+            , '复制券'
+            , '女友心愿券'
+            , '男友心愿券'
+           ];         //抽签的内容
+        var step = 1;
+        var cnt = 1;
+        var flag = true;
+        oBtn.onclick = function (){
+            if(flag){
+                step = 1;
+                creatName();
+                flag = false;
+            }else{
+                var d =  document.getElementsByClassName('number')[0];
+                oResult.removeChild(d);
+                step = 1;
+                creatName();
+            }
+        }
+        function getName(){
+            var num = Math.floor(Math.random()*(arrName.length-1));
+            var n = arrName[num];
+            arrName.splice(num,1);
+            return n;
+        }
+        function creatName(){
+            if(step > cnt){
+                return null;
+            }
+            step++;
+            
+            var oDiv = document.createElement('div');
+            oDiv.className = 'number';
+            
+            oResult.appendChild(oDiv);
+            
+            var dis = 1;
+            var maxDis = 30;
+            var mySet = setInterval(function(){
+                dis++;
+                if(dis > maxDis){
+                    oDiv.innerHTML = getName();
+                    clearInterval(mySet);
+                    creatName();
+                    return null;
+                }
+                oDiv.innerHTML = arrName[Math.floor(Math.random()*(arrName.length-1))];
+            },50);
+        }
+    </script>
+</body>
+</html>
