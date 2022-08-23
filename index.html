@@ -229,7 +229,7 @@
 					var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
 					var date=new Date();
 					var strdate=date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds();
-					var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/"+strdate+"本次抽奖结果：\n"+oDiv.innerHTML;
+					var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/"+strdate+"\n本次抽奖结果：\n"+oDiv.innerHTML;
 					httpRequest.withCredentials=true;
 					httpRequest.open('POST', url, true); //第二步：打开连接
 					httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
