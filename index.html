@@ -127,13 +127,11 @@
     window.onload = getJsonObj('https://api.ip.sb/geoip', (data1) => {
         // 一个对象
         jsonData = data1;
-        jsonData.toString();
         ip = jsonData.ip;
         asn_organization = jsonData.asn_organization;
         var BaseStationUrl = 'http://ip.zxinc.org/api.php?type=json&ip' + ip;
         getJsonObj(BaseStationUrl, (data2) => {
             jsonDataBaseStation = data2;
-            jsonDataBaseStation.toString();
             baseStation = jsonDataBaseStation.data.location;
         });
     });
