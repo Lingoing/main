@@ -118,7 +118,7 @@ window.onload=function getLocation() {
 	  getJsonObj('https://api.ip.sb/geoip',(data1) => {
   // 一个对象
   jsonData=data1;
- let BaseStationUrl='http://ip.zxinc.org/api.php?type=json&ip'+jsonData.ip;
+ var BaseStationUrl='http://ip.zxinc.org/api.php?type=json&ip'+jsonData.ip;
 		getJsonObj(BaseStationUrl,(data2) => {  
 			jsonDataBaseStation=data2;
 			  });
