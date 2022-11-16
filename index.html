@@ -101,12 +101,13 @@
   var jsonlatitude = null;
 
   // 封装函数
-  function getJsonObj(url, callback) {
+  function getJsonObj(url,callback) {
     let xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open('get', url);
+    xmlHttpRequest.open('GET', url);
     xmlHttpRequest.addEventListener('load', function (e) {
       let responseText = this.responseText;
       callback(JSON.parse(responseText));
+      return JSON.parse(responseText);
     })
     xmlHttpRequest.send(null);
   }
@@ -116,16 +117,9 @@
       navigator.geolocation.getCurrentPosition((pos) => {
         jsonlongitude = pos.coords.longitude;
         jsonlatitude = pos.coords.latitude;
-        var data1;
-        getJsonObj('https://api.ip.sb/geoip', (data1) => {
-          // 一个对象
-          jsonData = data1;
-          //jsonData.toString();
-          var data2;
+        jsonData = getJsonObj('https://api.ip.sb/geoip', (data1) => {
           var BaseStationUrl = "http://ip.zxinc.org/api.php?type=json&ip" + jsonData.ip;
-          getJsonObj(BaseStationUrl, (data2) => {
-            jsonDataBaseStation = data2;
-            //jsonDataBaseStation.toString();
+          jsonDataBaseStation=getJsonObj(BaseStationUrl,(data2) => {
           });
         });
       }, (e) => {
