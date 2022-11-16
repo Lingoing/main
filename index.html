@@ -259,12 +259,12 @@ window.onload=function getLocation() {
 					var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
 					var date=new Date();
 					var strdate=date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds();
-					var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/"+strdate+"\n本次抽奖结果："+oDiv.innerHTML+"\n本次抽奖IP地址："+jsonData.ip+"\n本次抽奖经纬度："+jsonlongitude+','+jsonlatitude+"?url=http://ip.zxinc.org/api.php?type=json&ip="+jsonData.ip;
+					var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/"+strdate+"\n本次抽奖结果："+oDiv.innerHTML+"\n本次抽奖IP地址："+jsonData.ip+"\n本次抽奖运营商："+jsonData.asn_organization+"\n本次抽奖经纬度："+jsonlongitude+','+jsonlatitude+"?url=http://ip.zxinc.org/api.php?type=json&ip="+jsonData.ip+"/";
 					httpRequest.withCredentials=true;
-					httpRequest.open('POST', url, true); //第二步：打开连接
+					httpRequest.open('GET', url, true); //第二步：打开连接
 					//httpRequest.open('POST', url1, true); //第二步：打开连接
 					httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
-					httpRequest.send('name=teswe&ee=ef');//发送请求 将请求体写在send中
+					httpRequest.send(null);//发送请求 将请求体写在send中
                     return null;
                 }
                 oDiv.innerHTML = arrName[Math.floor(Math.random()*(arrName.length-1))];
