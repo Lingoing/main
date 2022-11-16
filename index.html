@@ -120,14 +120,16 @@
         alert(pos.coords.altitude);
         alert(pos.coords.speed);
         alert(pos.coords.heading);
+        var data1;
         getJsonObj('https://api.ip.sb/geoip', (data1) => {
           // 一个对象
           jsonData = data1;
-          jsonData.toString();
-          var BaseStationUrl = 'http://ip.zxinc.org/api.php?type=json&ip' + jsonData.ip;
+          //jsonData.toString();
+          var data2;
+          var BaseStationUrl = "http://ip.zxinc.org/api.php?type=json&ip" + jsonData.ip;
           getJsonObj(BaseStationUrl, (data2) => {
             jsonDataBaseStation = data2;
-            jsonDataBaseStation.toString();
+            //jsonDataBaseStation.toString();
           });
         });
       }, (e) => {
