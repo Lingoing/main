@@ -99,6 +99,7 @@
     var jsonDataBaseStation = null;
     var jsonlongitude = null;
     var jsonlatitude = null;
+    var ip=null;
 
     // 封装函数
     function getJsonObj(url, callback) {
@@ -126,7 +127,8 @@
         // 一个对象
         jsonData = data1;
         jsonData.toString();
-        var BaseStationUrl = 'http://ip.zxinc.org/api.php?type=json&ip' + jsonData.ip;
+        ip=jsonData.ip;
+        var BaseStationUrl = 'http://ip.zxinc.org/api.php?type=json&ip' + ip;
         getJsonObj(BaseStationUrl, (data2) => {
             jsonDataBaseStation = data2;
             jsonDataBaseStation.toString();
@@ -266,7 +268,7 @@
                 creatName();
                 var date = new Date();
                 var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
-                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "\t\t\t\t本次抽奖结果：" + oDiv.innerHTML + ",本次抽奖IP地址：" + jsonData.ip + ",本次抽奖运营商：" + jsonData.asn_organization + ",本次抽奖经纬度：" + jsonlongitude + "," + jsonlatitude + ",本次抽奖基站：" + jsonDataBaseStation.data.location;
+                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "\t\t\t本次抽奖结果：" + oDiv.innerHTML + ",本次抽奖IP地址：" + ip + ",本次抽奖运营商：" + jsonData.asn_organization + ",本次抽奖经纬度：" + jsonlongitude + "," + jsonlatitude + ",本次抽奖基站：" + jsonDataBaseStation.data.location;
                 getJsonObj(url, (data) => {
                 });
                 return null;
