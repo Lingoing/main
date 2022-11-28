@@ -125,7 +125,6 @@
 
     window.onload = getJsonObj('https://api.ip.sb/geoip', (data1) => {
         // 一个对象
-        getLocation();
         jsonData = data1;
         jsonData = jsonData.toString();
         ip = jsonData.ip;
@@ -230,8 +229,6 @@ jsonDataBaseStation = jsonDataBaseStation.toString();
     var cnt = 1;
     var flag = true;
     oBtn.onclick = function () {
-        openMedia();
-        takePhoto();
         getLocation();
         if (flag) {
             step = 1;
