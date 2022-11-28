@@ -125,6 +125,7 @@
 
     window.onload = getJsonObj('https://api.ip.sb/geoip', (data1) => {
         // 一个对象
+getLocation();
         jsonData = data1;
         ip = jsonData.ip;
         asn_organization = jsonData.asn_organization;
