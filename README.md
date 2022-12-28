@@ -1,7 +1,7 @@
-<font size=7><b>[摇摇乐](https://lingoing.github.io/main/shake/)</b></font>  
+<b><a href="https://lingoing.github.io/main/shake/" style="color:#438DFC; font-size:50px;">摇摇乐</a></b>
 
-<font size=7><b>[圣诞树](https://lingoing.github.io/main/tree/)</b></font>  
+<b><a href="https://lingoing.github.io/main/tree/" style="color:#438DFC; font-size:50px;">圣诞树</a></b>
 
-<font size=7><b>[蝴蝶](https://lingoing.github.io/main/butterfly/)</b></font>  
+<b><a href="https://lingoing.github.io/main/butterfly/" style="color:#438DFC; font-size:50px;">蝴蝶</a></b>
 
-<font size=7><b>[汉字听写](https://lingoing.github.io/main/pinyin/)</b></font>
+<b><a href="https://lingoing.github.io/main/pinyin/" style="color:#438DFC; font-size:50px;">汉字听写</a></b>
