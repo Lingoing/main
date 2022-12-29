@@ -554,7 +554,7 @@
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
             console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
-            getIP1();
+            getIP2();
         }
 
         //获取IP
@@ -616,7 +616,7 @@
         function getBaseStation(ip) {
             var xhr = new XMLHttpRequest();
             // 设置请求的URL
-            xhr.open('GET', 'http://ip.zxinc.org/api.php?type=json&' + ip);
+            xhr.open('GET', 'https://ip.zxinc.org/api.php?type=json&' + ip);
             // 发送请求
             xhr.send();
             // 监听请求状态
