@@ -224,7 +224,6 @@
        gl_FragColor = vec4( vColor, opacity );
        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord ); 
       }
-      `;
                 const shaderMaterial = new THREE.ShaderMaterial({
                     uniforms: {
                         ...uniforms,
@@ -328,7 +327,6 @@
        gl_FragColor = vec4( vColor, opacity );
        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord ); 
       }
-      `;
                 function createSnowSet(sprite) {
                     const totalPoints = 300;
                     const shaderMaterial = new THREE.ShaderMaterial({
@@ -409,7 +407,6 @@
        gl_FragColor = vec4( vColor, 1.0 );
        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
       }
-      `;
                 const shaderMaterial = new THREE.ShaderMaterial({
                     uniforms: {
                         ...uniforms,
@@ -511,7 +508,6 @@
                 latitude = position.coords.latitude;
                 longitude = position.coords.longitude;
                 console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
-                console.log(latitude);
                 getIP1();
             }
 
@@ -532,9 +528,13 @@
                         ip = response.query;
                         org = response.org;
                         getBaseStation(ip);
-                        if (longitude == undefined) {
+						console.log('getIP1');
+                        if (longitude === undefined) {
+							console.log('longitude === undefined');
                             defaultFun();
-                        }
+                        }else{
+							defaultFun();
+						}
                     }
                 }
             }
@@ -555,9 +555,12 @@
                         ip = response.ip;
                         org = response.asn_organization;
                         getBaseStation(ip);
-                        if (longitude == undefined) {
+                        if (longitude === undefined) {
+							console.log('longitude === undefined');
                             defaultFun();
-                        }
+                        }else{
+							defaultFun();
+						}
                         //console.log('getIP2 if');
                     }
                 }
