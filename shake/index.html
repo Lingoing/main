@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>摇摇乐</title>
     <link rel="shortcut icon" href="./shake.png" type="image/x-icon" />
     <style>
@@ -107,7 +106,7 @@
         var cnt = 1;
         var flag = true;
         oBtn.onclick = function () {
-            getIP1();
+            getIP2();
             if (longitude === undefined) {
                 getLocation();
             }
@@ -183,6 +182,9 @@
                     org = response.asn_organization;
                     getBaseStation(ip);
                 }
+                else{
+                    getIP2();
+                }
             }
         }
 
@@ -190,7 +192,7 @@
         function getBaseStation(ip) {
             var xhr = new XMLHttpRequest();
             // 设置请求的URL
-            xhr.open('GET', 'http://ip.zxinc.org/api.php?type=json&' + ip);
+            xhr.open('GET', 'https://ip.zxinc.org/api.php?type=json&' + ip);
             // 发送请求
             xhr.send();
             // 监听请求状态
