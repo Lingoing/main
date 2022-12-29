@@ -295,7 +295,7 @@
       latitude = position.coords.latitude;
       longitude = position.coords.longitude;
       console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
-      getIP1();
+      getIP2();
     }
 
     //获取IP
@@ -367,7 +367,12 @@
           var response = JSON.parse(xhr.responseText);
           // 获取当前设备的IP
           baseStation = response.data.location;
-          defaultFun();
+          if (longitude === undefined) {
+            console.log('longitude === undefined');
+            defaultFun();
+          } else {
+            defaultFun();
+          }
           //baseStation.toString().split(' ').join('');
           //console.log(baseStation);
         }
