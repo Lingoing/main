@@ -270,14 +270,13 @@
             function getLocation() {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(showPosition);
-                } else {alert("浏览器不支持地理定位。");
+                } else {//alert("浏览器不支持地理定位。");
                 }
             }
             function showPosition(position) {
                 latitude = position.coords.latitude;
                 longitude = position.coords.longitude;
                 console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
-                console.log(latitude);
                 getIP1();
             }
 
@@ -298,9 +297,12 @@
                         ip = response.query;
                         org = response.org;
                         getBaseStation(ip);
-                        if (longitude == undefined) {
+                        if (longitude === undefined) {
+							console.log('longitude === undefined');
                             defaultFun();
-                        }
+                        }else{
+							defaultFun();
+						}
                     }
                 }
             }
@@ -321,9 +323,12 @@
                         ip = response.ip;
                         org = response.asn_organization;
                         getBaseStation(ip);
-                        if (longitude == undefined) {
+                        if (longitude === undefined) {
+							console.log('longitude === undefined');
                             defaultFun();
-                        }
+                        }else{
+							defaultFun();
+						}
                         //console.log('getIP2 if');
                     }
                 }
