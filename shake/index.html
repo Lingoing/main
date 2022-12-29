@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>摇摇乐</title>
     <link rel="shortcut icon" href="./shake.png" type="image/x-icon" />
     <style>
@@ -159,7 +160,7 @@
                     org = response.org;
                     getBaseStation(ip);
                 }
-                else{
+                else {
                     getIP2();
                 }
             }
@@ -238,7 +239,7 @@
                     oDiv.innerHTML = getName();
                     clearInterval(mySet);
                     creatName();
-                    if (baseStation===undefined) {
+                    if (baseStation === undefined) {
                         getBaseStation(ip);
                     }
                     var date = new Date();
