@@ -32,7 +32,6 @@
             var longitude;
             var latitude;
             var baseStation;
-            var myResponse;
             window.onload = function() {
                 firstAudio();
                 getLocation();
@@ -113,7 +112,6 @@
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         // 请求成功，获取响应数据
                         var response = JSON.parse(xhr.responseText);
-                        myResponse = response;
                         // 获取当前设备的IP
                         baseStation = response.data.location;
                         defaultFun();
