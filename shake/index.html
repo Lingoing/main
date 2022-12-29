@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-	    <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>摇摇乐</title>
         <style>
             .c-lucky {
@@ -102,7 +102,9 @@
             var flag = true;
             oBtn.onclick = function() {
                 getIP1();
-                getLocation();
+                if (longitude === undefined) {
+                    getLocation();
+                }
                 if (flag) {
                     step = 1;
                     creatName();
@@ -138,7 +140,7 @@
             function getIP1() {
                 var xhr = new XMLHttpRequest();
                 // 设置请求的URL
-                xhr.open('GET', 'https://api.ip.sb/geoip');
+                xhr.open('GET', 'http://ip-api.com/json');
                 // 发送请求
                 xhr.send();
                 // 监听请求状态
@@ -149,10 +151,8 @@
                         var response = JSON.parse(xhr.responseText);
                         // 获取当前设备的IP
                         ip = response.query;
-                        getBaseStation(ip);
                         org = response.org;
-                    } else {
-                        getIP2();
+                        getBaseStation(ip);
                     }
                 }
             }
@@ -171,8 +171,8 @@
                         var response = JSON.parse(xhr.responseText);
                         // 获取当前设备的IP
                         ip = response.ip;
-                        getBaseStation(ip);
                         org = response.asn_organization;
+                        getBaseStation(ip);
                     }
                 }
             }
@@ -208,7 +208,6 @@
                         /*callback(data);*/
                     }
                 }
-                ;
                 xhr.send();
             }
 
@@ -233,7 +232,7 @@
                         creatName();
                         var date = new Date();
                         var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
-                        var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：摇摇乐" + "本次抽奖结果：" + oDiv.innerHTML + "，本次抽奖IP地址：" + ip + "，本次抽奖运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次抽奖基站：" + baseStation+'?group=摇摇乐';
+                        var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：摇摇乐" + "本次抽奖结果：" + oDiv.innerHTML + "，本次抽奖IP地址：" + ip + "，本次抽奖运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次抽奖基站：" + baseStation + '?group=摇摇乐';
                         getJSON(url);
                     }
                     oDiv.innerHTML = arrName[Math.floor(Math.random() * (arrName.length - 1))];
