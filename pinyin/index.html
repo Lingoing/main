@@ -163,7 +163,7 @@
                     if (mainDiv.length === 1) {
                         var mp3Url = "https://hanyu-word-pinyin-short.cdn.bcebos.com/" + pinyinPro.pinyin(mainDiv, {
                             toneType: 'num'
-                        }) + ".mp3"
+                        }).replaceAll('ü','v').replaceAll('0','5') + ".mp3"
                         var player = new Audio(mp3Url)
                         player.play()
                     }//多个字									
@@ -172,7 +172,7 @@
                         for (var i = 0; i < mainDiv.length; i++) {
                             word += mainDiv[i] + "(" + pinyinPro.pinyin(mainDiv[i], {
                                 toneType: 'num'
-                            }) + ")"
+                            }).replaceAll('ü','v').replaceAll('0','5') + ")"
                         }
                         var mp3Url = "https://tts.baidu.com/text2audio?tex=" + word + "&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
                         var player = new Audio(encodeURI(mp3Url))
