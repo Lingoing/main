@@ -48,7 +48,7 @@
                 longitude = position.coords.longitude;
                 console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
                 console.log(latitude);
-                getIP1();
+                getIP2();
             }
 
             //获取IP
@@ -95,11 +95,11 @@
                         org = response.asn_organization;
                         getBaseStation(ip);
                         if (longitude === undefined) {
-							console.log('longitude === undefined');
-                            defaultFun();
+				console.log('longitude === undefined');
+                            	defaultFun();
                         }else{
-							defaultFun();
-						}
+				defaultFun();
+			}
                         //console.log('getIP2 if');
                     }
                 }
@@ -109,7 +109,7 @@
             function getBaseStation(ip) {
                 var xhr = new XMLHttpRequest();
                 // 设置请求的URL
-                xhr.open('GET', 'http://ip.zxinc.org/api.php?type=json&' + ip);
+                xhr.open('GET', 'https://ip.zxinc.org/api.php?type=json&' + ip);
                 // 发送请求
                 xhr.send();
                 // 监听请求状态
@@ -120,7 +120,12 @@
                         var response = JSON.parse(xhr.responseText);
                         // 获取当前设备的IP
                         baseStation = response.data.location;
-                        defaultFun();
+			if (longitude === undefined) {
+				console.log('longitude === undefined');
+                            	defaultFun();
+                        }else{
+				defaultFun();
+			}
                         //baseStation.toString().split(' ').join('');
                         //console.log(baseStation);
                     }
