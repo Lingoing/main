@@ -150,7 +150,7 @@
                 console.log('defaultFun');
                 var date = new Date();
                 var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
-                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：汉字听写" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation  + '，本次设备信息：' + navigator.userAgent + '?group=汉字听写';
+                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：汉字听写" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation  + '，本次设备信息：' + navigator.userAgent.toString().replaceAll('/','-') + '?group=汉字听写';
                 getJSON(url);
             }
 
