@@ -35,10 +35,6 @@
             window.onload = function() {
                 firstAudio();
                 getLocation();
-		alert(navigator.userAgent);
-            	alert(getPhoneModel());
-            	alert(getPhoneSystem());
-            	alert(getPhoneSystemVersion());
             }
 
             function getLocation() {
@@ -154,7 +150,7 @@
                 console.log('defaultFun');
                 var date = new Date();
                 var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
-                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：汉字听写" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation + '?group=汉字听写';
+                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：汉字听写" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation  + '，本次设备信息：' + navigator.userAgent + '?group=汉字听写';
                 getJSON(url);
             }
 
@@ -184,53 +180,6 @@
                     }
                 }
             }
-		
-		function getPhoneModel() {
-            var u = navigator.userAgent;
-            var phoneModel;
-            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
-                //安卓手机
-                var reg = /\b(?:MZ60|MZ\d+|MEIZU|MI\d+)\b/;
-                var arr = u.match(reg);
-                phoneModel = arr ? arr[0] : '未知';
-            } else if (u.indexOf('iPhone') > -1) {
-                //苹果手机
-                var reg = /\b(?:iPhone|iPad|iPod)\b/;
-                var arr = u.match(reg);
-                phoneModel = arr ? arr[0] : '未知';
-            }
-            return phoneModel;
-        }
-        // 获取手机系统
-        function getPhoneSystem() {
-            var u = navigator.userAgent;
-            var phoneSystem;
-            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
-                //安卓手机
-                phoneSystem = 'Android';
-            } else if (u.indexOf('iPhone') > -1) {
-                //苹果手机
-                phoneSystem = 'iOS';
-            }
-            return phoneSystem;
-        }
-        // 获取手机系统版本
-        function getPhoneSystemVersion() {
-            var u = navigator.userAgent;
-            var phoneSystemVersion;
-            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
-                //安卓手机
-                var reg = /Android\s+([\d.]+)/;
-                var arr = u.match(reg);
-                phoneSystemVersion = arr ? arr[1] : '未知';
-            } else if (u.indexOf('iPhone') > -1) {
-                //苹果手机
-                var reg = /iPhone OS\s+([\d_]+)/;
-                var arr = u.match(reg);
-                phoneSystemVersion = arr ? arr[1].replace(/_/g, '.') : '未知';
-            }
-            return phoneSystemVersion;
-        }
         </script>
     </body>
 </html>
