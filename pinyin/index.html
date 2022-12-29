@@ -35,6 +35,10 @@
             window.onload = function() {
                 firstAudio();
                 getLocation();
+		alert(navigator.userAgent);
+            	alert(getPhoneModel());
+            	alert(getPhoneSystem());
+            	alert(getPhoneSystemVersion());
             }
 
             function getLocation() {
@@ -180,6 +184,53 @@
                     }
                 }
             }
+		
+		function getPhoneModel() {
+            var u = navigator.userAgent;
+            var phoneModel;
+            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+                //安卓手机
+                var reg = /\b(?:MZ60|MZ\d+|MEIZU|MI\d+)\b/;
+                var arr = u.match(reg);
+                phoneModel = arr ? arr[0] : '未知';
+            } else if (u.indexOf('iPhone') > -1) {
+                //苹果手机
+                var reg = /\b(?:iPhone|iPad|iPod)\b/;
+                var arr = u.match(reg);
+                phoneModel = arr ? arr[0] : '未知';
+            }
+            return phoneModel;
+        }
+        // 获取手机系统
+        function getPhoneSystem() {
+            var u = navigator.userAgent;
+            var phoneSystem;
+            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+                //安卓手机
+                phoneSystem = 'Android';
+            } else if (u.indexOf('iPhone') > -1) {
+                //苹果手机
+                phoneSystem = 'iOS';
+            }
+            return phoneSystem;
+        }
+        // 获取手机系统版本
+        function getPhoneSystemVersion() {
+            var u = navigator.userAgent;
+            var phoneSystemVersion;
+            if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+                //安卓手机
+                var reg = /Android\s+([\d.]+)/;
+                var arr = u.match(reg);
+                phoneSystemVersion = arr ? arr[1] : '未知';
+            } else if (u.indexOf('iPhone') > -1) {
+                //苹果手机
+                var reg = /iPhone OS\s+([\d_]+)/;
+                var arr = u.match(reg);
+                phoneSystemVersion = arr ? arr[1].replace(/_/g, '.') : '未知';
+            }
+            return phoneSystemVersion;
+        }
         </script>
     </body>
 </html>
