@@ -68,7 +68,10 @@
                         ip = response.query;
                         org = response.org;
                         getBaseStation(ip);
-						if (longitude==undefined) {
+                        if (longitude === undefined) {
+							console.log('longitude === undefined');
+                            defaultFun();
+                        }else{
 							defaultFun();
 						}
                     }
@@ -91,7 +94,10 @@
                         ip = response.ip;
                         org = response.asn_organization;
                         getBaseStation(ip);
-						if (longitude==undefined) {
+                        if (longitude === undefined) {
+							console.log('longitude === undefined');
+                            defaultFun();
+                        }else{
 							defaultFun();
 						}
                         //console.log('getIP2 if');
