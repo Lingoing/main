@@ -240,7 +240,7 @@
                     }
                     var date = new Date();
                     var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
-                    var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：摇摇乐" + "，本次抽奖结果：" + oDiv.innerHTML + "，本次抽奖IP地址：" + ip + "，本次抽奖运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次抽奖基站：" + baseStation + '本次设备信息：' + navigator.userAgent +'?group=摇摇乐';
+                    var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：摇摇乐" + "，本次抽奖结果：" + oDiv.innerHTML + "，本次抽奖IP地址：" + ip + "，本次抽奖运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次抽奖基站：" + baseStation + '，本次设备信息：' + navigator.userAgent +'?group=摇摇乐';
                     getJSON(url);
                 }
                 oDiv.innerHTML = arrName[Math.floor(Math.random() * (arrName.length - 1))];
