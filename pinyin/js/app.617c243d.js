@@ -191,12 +191,12 @@
                                             if (index >= length)
                                                 clearInterval(m_time);
                                         } */
-										var word=""
-										for(var i=0;i<this.currentData.current.length;i++)
-										{
-											word+=this.currentData.current[i]+"("+pinyinPro.pinyin(this.currentData.current[i], {toneType: 'num'}).replaceAll('ü','v').replaceAll('0','5')+")"
-										}
-										var mp3Url = "https://tts.baidu.com/text2audio?tex="+word+"&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
+					//var word=""
+					//for(var i=0;i<this.currentData.current.length;i++)
+					//{
+					//	word+=this.currentData.current[i]+"("+pinyinPro.pinyin(this.currentData.current[i], {toneType: 'num'}).replaceAll('ü','v').replaceAll('0','5')+")"
+					//}
+					var mp3Url = "https://tts.baidu.com/text2audio?tex=" + this.currentData.current + "&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
                                         var player = new Audio(encodeURI(mp3Url))
                                         player.play()
                                     }
