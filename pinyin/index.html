@@ -33,7 +33,6 @@
             var latitude;
             var baseStation;
             window.onload = function() {
-                firstAudio();
                 getLocation();
             }
 
@@ -152,33 +151,6 @@
                 var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
                 var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：汉字听写" + "，本次访问IP地址：" + ip + "，本次访问运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次访问基站：" + baseStation  + '，本次设备信息：' + navigator.userAgent.toString().replaceAll('/','-') + '?group=汉字听写';
                 getJSON(url);
-            }
-
-            //初次加载音频
-            function firstAudio() {
-                //console.log('firstAudio');
-                var mainDiv = document.getElementsByClassName('main')[0].title;
-                if (mainDiv !== undefined && mainDiv !== "") {
-                    //单个字
-                    if (mainDiv.length === 1) {
-                        var mp3Url = "https://hanyu-word-pinyin-short.cdn.bcebos.com/" + pinyinPro.pinyin(mainDiv, {
-                            toneType: 'num'
-                        }).replaceAll('ü','v').replaceAll('0','5') + ".mp3"
-                        var player = new Audio(mp3Url)
-                        player.play()
-                    }//多个字									
-                    else if (mainDiv.length > 1) {
-                        //var word = ""
-                        //for (var i = 0; i < mainDiv.length; i++) {
-                        //    word += mainDiv[i] + "(" + pinyinPro.pinyin(mainDiv[i], {
-                        //        toneType: 'num'
-                        //    }).replaceAll('ü','v').replaceAll('0','5') + ")"
-                        //}
-                        var mp3Url = "https://tts.baidu.com/text2audio?tex=" + mainDiv + "&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
-                        var player = new Audio(encodeURI(mp3Url))
-                        player.play()
-                    }
-                }
             }
         </script>
     </body>
