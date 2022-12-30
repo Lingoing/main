@@ -1,5 +1,6 @@
 (function () {
     "use strict";
+    var player = new Audio();
     var n = {
         9220: function (n, t, e) {
             var r = e(7195)
@@ -179,17 +180,19 @@
                                     this.currentData.current = this.currentData.data.splice(Math.floor(Math.random() * this.currentData.data.length), 1)[0]
 
                                     if (this.currentData.current !== undefined && this.currentData.current !== "") {
+                                        player.pause();
                                         //单个字
                                         if (this.currentData.current.length === 1) {
                                             document.getElementsByClassName('main')[0].title = this.currentData.current
-                                            var mp3Url = "https://hanyu-word-pinyin-short.cdn.bcebos.com/" + pinyinPro.pinyin(this.currentData.current, {
+                                            var singlemp3Url = "https://hanyu-word-pinyin-short.cdn.bcebos.com/" + pinyinPro.pinyin(this.currentData.current, {
                                                 toneType: 'num'
                                             }).replaceAll('ü', 'v').replaceAll('0', '5') + ".mp3"
-                                            var player = new Audio(mp3Url)
+                                            player.src = singlemp3Url
                                             player.play()
                                         }
                                         //多个字									
                                         else if (this.currentData.current.length > 1) {
+
                                             document.getElementsByClassName('main')[0].title = this.currentData.current
                                             /*var arr = this.currentData.current;
                                             var length = this.currentData.current.length;
@@ -214,8 +217,8 @@
                                             for (var i = 0; i < this.currentData.current.length; i++) {
                                                 word += this.currentData.current[i] + "(" + pinyinPro.pinyin(this.currentData.current[i], { toneType: 'num' }).replaceAll('ü', 'v').replaceAll('0', '5') + ")"
                                             }*/
-                                            var mp3Url = "https://tts.baidu.com/text2audio?tex=" + this.currentData.current + "&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
-                                            var player = new Audio(encodeURI(mp3Url))
+                                            var multiwordmp3Url = "https://tts.baidu.com/text2audio?tex=" + this.currentData.current + "&cuid=dict&lan=ZH&ctp=1&pdt=30&vol=9&per=4100"
+                                            player.src = multiwordmp3Url
                                             player.play()
                                         }
                                     }
