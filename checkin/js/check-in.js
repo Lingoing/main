@@ -30,7 +30,7 @@ function start(){
 
 		count( 100, 0, WIDTH, 0, HEIGHT );
 
-		content = contents[`${months[ new Date().getMonth()]}${ new Date().getDate() }`];
+		content = contents[months[new Date().getMonth()] + new Date().getDate()];
 		const keys = Object.keys( content );
 		let sumTime = 0;
 
