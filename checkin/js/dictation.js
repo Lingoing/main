@@ -19,7 +19,7 @@ function start(){
 		$(".content").style.zIndex = 100;
 		$(".content").style.opacity = 1;
 
-		const content = contents[`${months[ new Date().getMonth()]}${ new Date().getDate() }`];
+		const content = contents[months[new Date().getMonth()] + new Date().getDate()];
 		const keys = Object.keys( content );
 		
 		const p = document.createElement("p");
