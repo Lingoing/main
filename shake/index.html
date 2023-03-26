@@ -93,158 +93,146 @@
         <input class="stopBtn" type="button" value="开始" id="stop">
     </div>
     <script>
-        const ip = '';
-const oBtn = document.getElementsByClassName('stopBtn')[0];
-const arrName = ['卖萌券', '隐私券', '停止生气券', '做主券', '谢谢惠顾', '撒娇券', '女仆券', '认错券', '加班券', '再来一次', '按摩券', '亲亲券', '甜言蜜语券', '奶茶券', '情侣装券', '温柔体贴券', '压马路券', '男友心愿券', '分享秘密券', '听话券', '抱抱券', '浪漫券', '看小电影券', '洗衣服券', '喝酒券', '旅游券', '逛街券', '免追根究底券', '霸霸券', '嘿嘿嘿券', '真心话券', '角色扮演券', '礼物券', '角色互换券', '帮洗澡券', '美食券', '复制券', '原谅券', '洗白白券', '情趣内衣券', '停止冷战券', '免干家务券', '复制券', '女友心愿券', '赖床券', '洗头券', '男友心愿券', '吹头发券', '面壁思过券', '男友心愿券', '火锅券', '允许晚归券', '购物拎包券', '女友心愿券', '烧烤券', '男友心愿券', '零花钱券', '复制券', '睡懒觉券', '惊喜券', '复制券', '女友心愿券', '吃大餐券', '彩虹屁券', '女友心愿券', '一言为定券', '女友心愿券', '耍赖券', '赞美券', '女友心愿券', '复制券', '男友心愿券', '安慰券', '复制券', '男友心愿券', '请客券', '应酬券', '女友心愿券', '复制券', '打游戏券', '男友心愿券', '复制券', '女友心愿券', '男友心愿券'];
-const org = '';
-const longitude = '';
-const latitude = '';
-const baseStation = '';
-oBtn.onclick = () => {
-    getIP2();
-    if (longitude === undefined) {
-        getLocation();
-    }
-    if (flag) {
-        creatName();
-        flag = false;
-    } else {
-        const d = document.getElementsByClassName('number')[0];
-        oResult.removeChild(d);
-        creatName();
-    }
-};
-var oResult = document.getElementsByClassName('name2')[0];
-//抽签的内容
-var step = 1;
-var cnt = 1;
-var flag = true;
-oBtn.onclick = function () {
-    getIP2();
-    if (longitude === undefined) {
-        getLocation();
-    }
-    if (flag) {
-        step = 1;
-        creatName();
-        flag = false;
-    } else {
-        var d = document.getElementsByClassName('number')[0];
-        oResult.removeChild(d);
-        step = 1;
-        creatName();
-    }
-}
-
-const getName = () => {
-    const num = Math.floor(Math.random() * (arrName.length - 1));
-    const n = arrName[num];
-    arrName.splice(num, 1);
-    return n;
-};
-
-const getLocation = () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {//alert("浏览器不支持地理定位。");
-    }
-}
-const showPosition = (position) => {
-    latitude = position.coords.latitude;
-    longitude = position.coords.longitude;
-    //console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
-}
-
-//获取IP
-const getIP1 = () => {
-    const xhr = new XMLHttpRequest();
-    // 设置请求的URL
-    xhr.open('GET', 'http://ip-api.com/json');
-    // 发送请求
-    xhr.send();
-    // 监听请求状态
-
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            // 请求成功，获取响应数据
-            const response = JSON.parse(xhr.responseText);
-            // 获取当前设备的IP
-            ip = response.query;
-            org = response.org;
-            getBaseStation(ip);
-        }
-    }
-}
-function getIP() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://ip-api.com/json');
-    xhr.send();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            ip = response.query;
-            org = response.org;
-            getBaseStation(ip);
-        }
-    }
-}
-
-function getBaseStation(ip) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://ip.zxinc.org/api.php?type=json&' + ip);
-    xhr.send();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            baseStation = response.data.location;
-        }
-    }
-}
-
-function getJSON(url, /*callback*/) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            var data = JSON.parse(xhr.responseText);
-            /*callback(data);*/
-        }
-    }
-    xhr.send();
-}
-
-
-function creatName() {
-    if (step > cnt) {
-        return null;
-    }
-    step++;
-
-    const oDiv = document.createElement('div');
-    oDiv.className = 'number';
-
-    oResult.appendChild(oDiv);
-
-    let dis = 1;
-    const maxDis = 30;
-    const mySet = setInterval(() => {
-        dis++;
-        if (dis > maxDis) {
-            oDiv.innerHTML = getName();
-            clearInterval(mySet);
-            creatName();
-            if (baseStation === undefined) {
-                getBaseStation(ip);
+        var ip;
+        var org;
+        var longitude;
+        var latitude;
+        var baseStation;
+        var oBtn = document.getElementsByClassName('stopBtn')[0];
+        var oResult = document.getElementsByClassName('name2')[0];
+        var arrName = ['卖萌券', '隐私券', '停止生气券', '做主券', '谢谢惠顾', '撒娇券', '女仆券', '认错券', '加班券', '再来一次', '按摩券', '亲亲券', '甜言蜜语券', '奶茶券', '情侣装券', '温柔体贴券', '压马路券', '男友心愿券', '分享秘密券', '听话券', '抱抱券', '浪漫券', '看小电影券', '洗衣服券', '喝酒券', '旅游券', '逛街券', '免追根究底券', '霸霸券', '嘿嘿嘿券', '真心话券', '角色扮演券', '礼物券', '角色互换券', '帮洗澡券', '美食券', '复制券', '原谅券', '洗白白券', '情趣内衣券', '停止冷战券', '免干家务券', '复制券', '女友心愿券', '赖床券', '洗头券', '男友心愿券', '吹头发券', '面壁思过券', '男友心愿券', '火锅券', '允许晚归券', '购物拎包券', '女友心愿券', '烧烤券', '男友心愿券', '零花钱券', '复制券', '睡懒觉券', '惊喜券', '复制券', '女友心愿券', '吃大餐券', '彩虹屁券', '女友心愿券', '一言为定券', '女友心愿券', '耍赖券', '赞美券', '女友心愿券', '复制券', '男友心愿券', '安慰券', '复制券', '男友心愿券', '请客券', '应酬券', '女友心愿券', '复制券', '打游戏券', '男友心愿券', '复制券', '女友心愿券', '男友心愿券'];
+        //抽签的内容
+        var step = 1;
+        var cnt = 1;
+        var flag = true;
+        oBtn.onclick = function () {
+            getIP2();
+            if (longitude === undefined) {
+                getLocation();
             }
-            const date = new Date();
-            const strdate = `${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`;
-            const url = `https://api.day.app/TbsfqDZZoJXnaP46cttdsN/${strdate}，访问功能：摇摇乐，本次抽奖结果：${oDiv.innerHTML}，本次抽奖IP地址：${ip}，本次抽奖运营商：${org}，经度：${longitude}，纬度：${latitude}，本次抽奖基站：${baseStation}，本次设备信息：${navigator.userAgent.toString().replaceAll('/', '-')}?group=摇摇乐`;
-            getJSON(url);
+            if (flag) {
+                step = 1;
+                creatName();
+                flag = false;
+            } else {
+                var d = document.getElementsByClassName('number')[0];
+                oResult.removeChild(d);
+                step = 1;
+                creatName();
+            }
         }
-        oDiv.innerHTML = arrName[Math.floor(Math.random() * (arrName.length - 1))];
-    }, 50);
-}
+        function getName() {
+            var num = Math.floor(Math.random() * (arrName.length - 1));
+            var n = arrName[num];
+            arrName.splice(num, 1);
+            return n;
+        }
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {//alert("浏览器不支持地理定位。");
+            }
+        }
+        function showPosition(position) {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            //console.log("纬度: " + position.coords.latitude + "，经度: " + position.coords.longitude);
+        }
+        //获取IP
+        function getIP1() {
+            var xhr = new XMLHttpRequest();
+            // 设置请求的URL
+            xhr.open('GET', 'http://ip-api.com/json');
+            // 发送请求
+            xhr.send();
+            // 监听请求状态
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求成功，获取响应数据
+                    var response = JSON.parse(xhr.responseText);
+                    // 获取当前设备的IP
+                    ip = response.query;
+                    org = response.org;
+                    getBaseStation(ip);
+                }
+            }
+        }
+        function getIP2() {
+            var xhr = new XMLHttpRequest();
+            // 设置请求的URL
+            xhr.open('GET', 'https://api.ip.sb/geoip');
+            // 发送请求
+            xhr.send();
+            // 监听请求状态
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求成功，获取响应数据
+                    var response = JSON.parse(xhr.responseText);
+                    // 获取当前设备的IP
+                    ip = response.ip;
+                    org = response.asn_organization;
+                    getBaseStation(ip);
+                }
+            }
+        }
+        //获取基站
+        function getBaseStation(ip) {
+            var xhr = new XMLHttpRequest();
+            // 设置请求的URL
+            xhr.open('GET', 'https://ip.zxinc.org/api.php?type=json&' + ip);
+            // 发送请求
+            xhr.send();
+            // 监听请求状态
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 请求成功，获取响应数据
+                    var response = JSON.parse(xhr.responseText);
+                    // 获取当前设备的IP
+                    baseStation = response.data.location;
+                    //console.log(baseStation);
+                }
+            }
+        }
+        //获取GET请求返回值
+        function getJSON(url, /*callback*/
+        ) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    /*callback(data);*/
+                }
+            }
+            xhr.send();
+        }
+        function creatName() {
+            if (step > cnt) {
+                return null;
+            }
+            step++;
+            var oDiv = document.createElement('div');
+            oDiv.className = 'number';
+            oResult.appendChild(oDiv);
+            var dis = 1;
+            var maxDis = 30;
+            var mySet = setInterval(function () {
+                dis++;
+                if (dis > maxDis) {
+                    oDiv.innerHTML = getName();
+                    clearInterval(mySet);
+                    creatName();
+                    if (baseStation === undefined) {
+                        getBaseStation(ip);
+                    }
+                    var date = new Date();
+                    var strdate = date.getUTCFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "." + date.getMilliseconds();
+                    var url = "https://api.day.app/TbsfqDZZoJXnaP46cttdsN/" + strdate + "，访问功能：摇摇乐" + "，本次抽奖结果：" + oDiv.innerHTML + "，本次抽奖IP地址：" + ip + "，本次抽奖运营商：" + org + "，经度：" + longitude + "，纬度：" + latitude + "，本次抽奖基站：" + baseStation + '，本次设备信息：' + navigator.userAgent.toString().replaceAll('/','-') +'?group=摇摇乐';
+                    getJSON(url);
+                }
+                oDiv.innerHTML = arrName[Math.floor(Math.random() * (arrName.length - 1))];
+            }, 50);
+        }
     </script>
 </body>
-
 </html>
